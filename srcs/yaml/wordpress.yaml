@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-svc
+  labels:
+    app  : wordpress-svc
+    owner: fkathryn
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 192.168.99.103
+  selector:
+    app: wordpress
+  ports:
+    - name      : port-wordpress
+      protocol  : TCP
+      port      : 5050
+      targetPort: 5050
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress-deployment
+  labels:
+    app  : wordpress
+    owner: fkathryn
+spec:
+  selector:
+    matchLabels:
+       app: wordpress
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels: 
+        app  : wordpress
+        owner: fkathryn
+    spec:
+      containers: 
+      - name           : wordpress
+        image          : wordpress-image
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5050
