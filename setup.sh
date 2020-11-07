@@ -19,9 +19,22 @@ kubectl apply -f srcs/yaml/php.yaml
 docker build -t wordpress-image ./srcs/wordpress/
 kubectl apply -f srcs/yaml/wordpress.yaml
 
+#persistent volume
 kubectl apply -f srcs/yaml/pv_volume.yaml
 kubectl apply -f srcs/yaml/pv_claim.yaml
 
-#build wordpress
+#build mysql
 docker build -t mysql-image ./srcs/mysql/
 kubectl apply -f srcs/yaml/mysql.yaml
+
+#build ftps
+docker build -t ftps-image ./srcs/ftps/
+kubectl apply -f srcs/yaml/ftps.yaml
+
+#build grafana
+# docker build -t grafana-image ./srcs/grafana/
+# kubectl apply -f srcs/yaml/grafana.yaml
+
+#build influxdb
+# docker build -t influxdb-image ./srcs/influxdb/
+# kubectl apply -f srcs/yaml/influxdb.yaml

@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: influxdb-svc
+  labels:
+    app  : influxdb-svc
+    owner: fkathryn
+spec:
+  type: ClusterI
+  selector:
+    app: influxdb
+  ports:
+  - name      : port-influxdb
+    protocol  : TCP
+    port      : 8086
+    targetPort: 8086
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influxdb-deployment
+  labels:
+    app  : influxdb
+    owner: fkathryn
+spec:
+  selector:
+    matchLabels:
+       app: influxdb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels: 
+        app  : influxdb
+        owner: fkathryn
+    spec:
+      containers:
+      - name           : influxdb-deployment
+        image          : influxdb-image
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8086
+        volumeMounts:
+        - name     : influxdb-storage
+          mountPath: /var/lib
+        - name     : dockersock
+          mountPath: /var/run/docker.sock
+      volumes:
+      - name: influxdb-storage
+        persistentVolumeClaim:
+          claimName: influxdb-pv-claim
+      - name: dockersock
+        hostPath:
+            path: /var/run/docker.sock
