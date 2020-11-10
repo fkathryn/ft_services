@@ -12,16 +12,15 @@ docker build -t nginx-image ./srcs/nginx/
 kubectl apply -f srcs/yaml/nginx.yaml
 
 #build phpmyadmin
-docker build -t phpmyadmin-image ./srcs/php/
-kubectl apply -f srcs/yaml/php.yaml
+docker build -t phpmyadmin-image ./srcs/phpmyadmin/
+kubectl apply -f srcs/yaml/phpmyadmin.yaml
 
 #build wordpress
 docker build -t wordpress-image ./srcs/wordpress/
 kubectl apply -f srcs/yaml/wordpress.yaml
 
 #persistent volume
-kubectl apply -f srcs/yaml/pv_volume.yaml
-kubectl apply -f srcs/yaml/pv_claim.yaml
+kubectl apply -f srcs/yaml/volume.yaml
 
 #build mysql
 docker build -t mysql-image ./srcs/mysql/
@@ -31,10 +30,10 @@ kubectl apply -f srcs/yaml/mysql.yaml
 docker build -t ftps-image ./srcs/ftps/
 kubectl apply -f srcs/yaml/ftps.yaml
 
-#build grafana
-# docker build -t grafana-image ./srcs/grafana/
-# kubectl apply -f srcs/yaml/grafana.yaml
+# build grafana
+docker build -t grafana-image ./srcs/grafana/
+kubectl apply -f srcs/yaml/grafana.yaml
 
-#build influxdb
-# docker build -t influxdb-image ./srcs/influxdb/
-# kubectl apply -f srcs/yaml/influxdb.yaml
+# build influxdb
+docker build -t influxdb-image ./srcs/influxdb/
+kubectl apply -f srcs/yaml/influxdb.yaml

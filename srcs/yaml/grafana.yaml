@@ -36,8 +36,8 @@ spec:
         owner: fkathryn
     spec:
       containers: 
-      - name           : grafana
-        image          : grafana
+      - name           : grafana-deployment
+        image          : grafana-image
         imagePullPolicy: Never
         ports:
         - containerPort: 3000 

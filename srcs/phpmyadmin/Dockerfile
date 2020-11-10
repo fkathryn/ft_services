@@ -16,8 +16,8 @@ COPY srcs/nginx.conf /etc/nginx/conf.d/default.conf
 COPY srcs/supervisor.conf /etc/supervisord.conf
 COPY srcs/config.inc.php /var/www/phpmyadmin/config.inc.php
 
-COPY ./srcs/php.sh /
-RUN chmod +x php.sh
+COPY ./srcs/phpmyadmin.sh /
+RUN chmod +x phpmyadmin.sh
 
 EXPOSE	5000
-CMD ["/php.sh"]
+CMD ["/phpmyadmin.sh"]
